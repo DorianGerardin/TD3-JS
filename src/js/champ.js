@@ -27,6 +27,8 @@ class Champ {
 		
 		this.carte[18][xP - 1] = 0;
 
+		this.carte[19][xP - 1] = 0;
+
 		//pas de mines a proximité du tresor
 		if (xT != 1) {
 			this.carte[0][xT - 2] = 0;
@@ -39,6 +41,9 @@ class Champ {
 		}
 		
 		this.carte[1][xT - 1] = 0;
+
+		this.carte[0][xT - 1] = 0;
+
 
 		this.balise_div = document.getElementById("carte");
 

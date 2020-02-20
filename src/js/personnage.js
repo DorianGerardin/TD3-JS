@@ -1,31 +1,94 @@
 class Personnage extends Element {
 
 	constructor(x) {
-		// à compléter
+		super(x, 20, "personnage");
+		this.score = 200;
 	}
 
 	initialiser(x) {
-		// à compléter
+		super.initialiser(x, 20, "img/personnage.png");
+		this.score = 200;
 	}
 
 	mouvement(dx,dy) {
-		// à compléter
+		if (this.coordX + dx <= 20 && this.coordX + dx > 0) {
+			this.coordX += dx;
+		}
+		if (this.coordY + dy > 0 && this.coordY + dy <= 20) {
+			this.coordY += dy;
+		}
+		super.placer();
+		this.score -= 10;
 	}
 
 	indiquer_situation(C) {
-		// à compléter
+		let nbMinesProx = this.nbProxMines(C);
+		let affichage = document.getElementById("affichage");
+		affichage.innerHTML = nbMinesProx + " mines à proximité";
+		let message = document.getElementById("message");
+		message.innerHTML = "Score : " + this.score;
+
+		if (nbMinesProx == 0) {
+			super.setSrc("img/personnage.png");
+		}
+		else {
+			super.setSrc("img/personnage2.png");
+		}
 	}
 
 	trouve(T) {
-		// à compléter
+		return (this.coordY == T.coordY && this.coordX == T.coordX);
 	}
 
 	explose(C) {
-		// à compléter
+		return (C.carte[this.coordY - 1][this.coordX - 1] == 1);
 	}
 
 	nbProxMines(C) {
-		// à compléter
+		let cpt = 0;
+		if (this.coordX != 1 && this.coordY != 1) {
+			if (C.carte[this.coordY-2][this.coordX - 2] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordY != 1) {
+			if (C.carte[this.coordY-2][this.coordX - 1] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordX != 20 && this.coordY != 1) {
+			if (C.carte[this.coordY-2][this.coordX] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordX != 20) {
+			if (C.carte[this.coordY-1][this.coordX] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordX != 20 && this.coordY != 20) {
+			if (C.carte[this.coordY][this.coordX] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordY != 20) {
+			if (C.carte[this.coordY][this.coordX - 1] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordX != 1 && this.coordY != 20) {
+			if (C.carte[this.coordY][this.coordX - 2] == 1) {
+				cpt++;
+			}
+		}
+		if (this.coordX != 1) {
+			if (C.carte[this.coordY - 1][this.coordX - 2] == 1) {
+				cpt++;
+			}
+		}
+		
+
+		return cpt;
 	}
 
 
