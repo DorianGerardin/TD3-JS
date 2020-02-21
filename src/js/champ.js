@@ -69,8 +69,7 @@ class Champ {
 
 	cacher() {
 
-		for (var i = 399; i >= 0; i--) {
-			this.balise_div.removeChild(this.balise_div.children[i]);
-		}
+		let carte = document.getElementById("carte");
+		carte.innerHTML = "";
 	}
 }
